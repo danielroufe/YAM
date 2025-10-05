@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>KidRoutine Son ⭐</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#10b981">
+<style>
+:root{--bg:#f0fff7;--card:#fff;--text:#111;--muted:#047857;--brand:#10b981;--brand2:#059669;--accent:#34d399}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Heebo,Arial;background:radial-gradient(1000px 800px at 100% -10%,#bbf7d0 0,#f0fff7 40%),#f0fff7;color:var(--text)}
+header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;position:sticky;top:0;background:#ffffffd0;backdrop-filter:saturate(180%) blur(8px);border-bottom:2px solid #dcfce7}
+.brand{display:flex;align-items:center;gap:8px;font-weight:900;font-size:18px}
+.badge{border:2px dashed #86efac;border-radius:999px;padding:6px 12px;font-size:12px;color:#065f46;background:#ecfdf5}
+main{max-width:560px;margin:0 auto;padding:12px}
+.card{background:var(--card);border:2px solid #dcfce7;border-radius:22px;padding:12px;margin:14px 0;box-shadow:0 8px 0 #86efac}
+.title{display:flex;align-items:center;gap:8px;font-weight:900;font-size:22px}
+.muted{color:var(--muted);font-size:13px}
+.tabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;background:#d1fae5;border-radius:16px;padding:6px}
+.tabs button{background:#a7f3d0;border:2px solid #6ee7b7;border-radius:12px;padding:10px;font-weight:900;cursor:pointer}
+.tabs .active{background:#fff;border-color:#34d399;box-shadow:0 4px 0 #6ee7b7}
+.progress{height:14px;background:#dcfce7;border-radius:999px;overflow:hidden;border:2px solid #6ee7b7}
+.progress>div{height:100%;background:linear-gradient(90deg,#60a5fa,#10b981);width:0%}
+.grid{display:grid;gap:10px}
+.task{display:flex;align-items:center;gap:12px;padding:12px;border:2px solid #bbf7d0;border-radius:16px;background:#fff;box-shadow:0 4px 0 #86efac}
+.icon{width:60px;height:60px;display:grid;place-items:center;background:#ecfeff;border:2px solid #bae6fd;border-radius:14px;font-size:36px;cursor:pointer}
+.name{font-size:18px;font-weight:900}
+.mini{font-size:12px;color:#0f766e}
+.toggle{width:64px;height:36px;border-radius:999px;background:#fde68a;border:2px solid #fbbf24;position:relative;cursor:pointer}
+.toggle::after{content:"";position:absolute;inset:3px;width:28px;border-radius:999px;background:#fff;transition:transform .2s}
+.toggle.on{background:#86efac;border-color:#34d399}
+.toggle.on::after{transform:translateX(24px)}
+.btn{appearance:none;border:none;border-radius:12px;padding:10px 12px;background:var(--brand);color:#fff;font-weight:900;cursor:pointer;box-shadow:0 4px 0 var(--brand2)}
+.btn.ghost{background:#f0fdf4;color:#065f46;border:2px solid #86efac;box-shadow:none}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{background:#ecfeff;border:2px solid #bae6fd;border-radius:999px;padding:6px 10px;font-weight:900}
+.shelf{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.slot{height:72px;border:2px dashed #a7f3d0;border-radius:12px;display:grid;place-items:center;background:#fff}
+.slot.filled{border-style:solid;background:#f0fdf4}
+.small{font-size:12px;color:#64748b}
+.sticker{position:absolute;transform:rotate(-12deg) scale(0.5);opacity:0;animation:stick .6s ease-out forwards;transform-origin:bottom right}
+@keyframes stick{0%{opacity:0;transform:rotate(-12deg) scale(0.5) translate(20px,-20px)}60%{opacity:1;transform:rotate(8deg) scale(1.05)}100%{opacity:1;transform:rotate(0) scale(1)}}
+
+/* Admin & modal */
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.edit-list{display:grid;gap:8px;margin-top:8px}
+.edit-item{display:flex;gap:6px;align-items:center}
+.edit-item input{padding:8px;border:2px solid #e2e8f0;border-radius:10px}
+.edit-item button{padding:8px 10px;border-radius:10px;border:2px solid #e2e8f0;background:#fff;cursor:pointer}
+hr.sep{border:none;border-top:1px dashed #e2e8f0;margin:10px 0}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:50}
+.modal{background:#fff;border:3px solid #fcd34d;border-radius:22px;padding:18px;max-width:320px;text-align:center;box-shadow:0 10px 0 #f59e0b}
+.modal .gift{font-size:80px}
+.sticker{position:absolute;transform:rotate(-12deg) scale(0.5);opacity:0;animation:stick .6s ease-out forwards;transform-origin:bottom right}
+@keyframes stick{0%{opacity:0;transform:rotate(-12deg) scale(0.5) translate(20px,-20px)}60%{opacity:1;transform:rotate(8deg) scale(1.05)}100%{opacity:1;transform:rotate(0) scale(1)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">KidRoutine Son ⭐</div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <button id="installBtn" class="btn" style="display:none">התקנה</button>
+    <span id="status" class="badge">ווב</span>
+  </div>
+</header>
+<main>
+  <section class="card">
+    <div class="title">שלום <span id="kidNameLabel">חמוד/ה</span>! 🌈</div>
+    <div class="muted" id="subtitle">בואו עושים משימות בכיף</div>
+    <div class="progress" style="margin-top:8px"><div id="progressBar" style="width:0%"></div></div>
+    <div class="muted" style="margin-top:6px">התקדמות: <span id="progressText">0%</span> | כוכבים: <span id="starCount">0</span></div>
+  </section>
+
+  <div class="tabs card">
+    <button id="tabMorning" class="active">בוקר 🌞</button>
+    <button id="tabEvening">ערב 🌙</button>
+    <button id="tabAchieve">חיזוקים ⭐</button>
+  </div>
+
+  <section id="list" class="card grid"></section>
+
+  <section class="card">
+    <div class="title">פרסים ומדבקות</div>
+    <div class="muted">צוברים מטבעות → קונים מדבקות למדף</div>
+    <div class="chips" id="wallet"></div>
+    <div style="display:flex;gap:8px;margin:8px 0">
+      <button class="btn" id="buy1">😀 (5)</button>
+      <button class="btn" id="buy2">⭐ (5)</button>
+      <button class="btn" id="buy3">🏆 (10)</button>
+    </div>
+    <div class="shelf" id="shelf"></div>
+  </section>
+
+  <section class="card">
+    <div class="title">להורה</div>
+    <div class="row" style="margin-top:8px">
+      <label>שם הילד/ה:</label>
+      <input id="kidName" placeholder="חמוד/ה" style="max-width:220px;padding:10px;border:2px solid #e5e7eb;border-radius:12px">
+      <button class="btn ghost" id="clearData">ניקוי כל הנתונים</button>
+    </div>
+
+    <hr class="sep">
+
+    <div class="title" style="font-size:18px">ניהול משימות</div>
+    <div class="row" style="margin-top:6px">
+      <select id="editScope">
+        <option value="morning">בוקר</option>
+        <option value="evening">ערב</option>
+        <option value="motives">חיזוקים</option>
+      </select>
+      <input id="newTaskTitle" placeholder="כותרת משימה" style="flex:1;min-width:200px">
+      <input id="newTaskMinutes" type="number" min="0" placeholder="דקות (אופציונלי)" style="width:140px">
+      <button class="btn" id="addTask">הוסף/י</button>
+    </div>
+    <div class="edit-list" id="editList"></div>
+
+    <hr class="sep">
+
+    <div class="row">
+      <label>קריינות:</label>
+      <input type="checkbox" id="voiceOn">
+      <select id="voiceSelect"></select>
+      <label class="small">מהירות</label><input type="range" id="voiceRate" min="0.6" max="1.4" step="0.05" value="1">
+      <label class="small">גובה</label><input type="range" id="voicePitch" min="0.6" max="1.4" step="0.05" value="1">
+      <button class="btn ghost" id="testVoice">בדיקת קול</button>
+    </div>
+  </section>
+</main>
+
+<div class="modal-bg" id="giftModal">
+  <div class="modal">
+    <div class="gift">🎁</div>
+    <h3>יש! הגעתם ל־5 כוכבים!</h3>
+    <p>מגיעה מתנה 🎁</p>
+    <button class="btn" id="giftClose">יאיי!</button>
+  </div>
+</div>
+
+<script>
+const APP = "KidRoutine-Son";
+const DEFAULT_MORNING = [["להתעורר בזמן", 2], ["ללכת לשירותים", 3], ["לצחצח שיניים ולשטוף פנים", 3], ["להתלבש לבד", 5], ["לאכול ארוחת בוקר", 10], ["לקחת תיק ובקבוק מים", 1]];
+const DEFAULT_EVENING = [["לאסוף צעצועים", 5], ["להכין תיק לבית הספר", 4], ["שיעורי בית", 20], ["להכין בגדים למחר", 3], ["לצחצח שיניים", 3], ["סיפור לפני השינה", 10]];
+const DEFAULT_MOTIVE_TITLES = ["הכיר חבר חדש", "שיחק יפה עם אחרים", "עשה פיפי/קקי בבית הספר", "מילא מים לבד", "עזר למורה"];
+
+// icons per title (emoji). fallback to default icon.
+const ICONS = {"להתעורר בזמן": "⏰", "להתעורר עם חיוך": "🌞", "ללכת לשירותים": "🚽", "פיפי/חיתול": "🧷", "לצחצח שיניים ולשטוף פנים": "🪥", "לצחצח שיניים (עם עזרה)": "🪥", "לצחצח שיניים": "🪥", "לשטוף ידיים ופנים": "🫧", "להתלבש לבד": "👕", "להתלבש (עם עזרה)": "👗", "לאכול ארוחת בוקר": "🥣", "לאכול ארוחת בוקר קטנה": "🍓", "לקחת תיק ובקבוק מים": "🎒", "לקחת דובי/מוצץ/בקבוק מים": "🧸", "לאסוף צעצועים": "🧸", "שיעורי בית": "✏️", "להכין בגדים למחר": "👚", "סיפור לפני השינה": "📖", "מקלחת/שטיפה": "🛁", "פיג׳מה נוחה": "🛌", "לנעול נעליים": "👟", "הכיר חבר חדש": "🤝", "שיחק יפה עם אחרים": "⚽", "עשה פיפי/קקי בבית הספר": "🌟", "סיפרה למחנכת כשצריך פיפי": "🚽", "מילא מים לבד": "🚰", "אכלה יפה בגן": "🥣", "נמנמה טוב 🌙": "🌙", "השתתפה במעגל שיחה/שירים": "🎶", "עזר למורה": "🍎", "אמרה בבקשה/תודה": "💬"};
+function iconFor(title){ return ICONS[title] || "⭐"; }
+
+const LS=(k,d)=>{ try{ return JSON.parse(localStorage.getItem(APP+":"+k)) ?? d }catch{ return d } };
+const SET=(k,v)=>{ try{ localStorage.setItem(APP+":"+k, JSON.stringify(v)) }catch{} };
+
+let tab=LS('tab','morning');
+let nameVal=LS('kidName','חמוד/ה');
+let morning=LS('morningTasks', DEFAULT_MORNING.map(x=>({id:crypto.randomUUID(), title:x[0], ...(x[1]?{minutes:x[1]}:{})})));
+let evening=LS('eveningTasks', DEFAULT_EVENING.map(x=>({id:crypto.randomUUID(), title:x[0], ...(x[1]?{minutes:x[1]}:{})})));
+let motives=LS('motives', DEFAULT_MOTIVE_TITLES.map(t=>({id:crypto.randomUUID(), title:t})));
+
+let today=new Date().toDateString();
+let done=LS('doneToday',{date:today,morning:{},evening:{},motives:{}});
+if(done.date!==today){ done={date:today,morning:{},evening:{},motives:{}}; SET('doneToday',done); }
+let coins=LS('coins',0);
+let stars=LS('stars',0);
+let shelf=LS('shelf',Array(8).fill(null));
+
+// Voice
+let voiceOn=LS('voiceOn',true);
+let voiceName=LS('voiceName','');
+let voiceRate=LS('voiceRate',1);
+let voicePitch=LS('voicePitch',1);
+let voices=[];
+function loadVoices(){
+  voices = speechSynthesis.getVoices().filter(v=>/he|Hebrew/i.test(v.lang) || /Hebrew/i.test(v.name));
+  const sel=document.querySelector('#voiceSelect'); sel.innerHTML='';
+  if(voices.length===0){ voices = speechSynthesis.getVoices(); }
+  voices.forEach(v=>{
+    const opt=document.createElement('option'); opt.value=v.name; opt.textContent=`${v.name} (${v.lang})`;
+    if(v.name===voiceName) opt.selected=true; sel.appendChild(opt);
+  });
+  if(!voiceName && voices[0]) voiceName=voices[0].name;
+}
+if('speechSynthesis' in window){
+  loadVoices(); window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+function say(text){
+  if(!voiceOn || !('speechSynthesis' in window)) return;
+  const u=new SpeechSynthesisUtterance(text);
+  const v=voices.find(x=>x.name===voiceName) || voices.find(x=>/he|Hebrew/i.test(x.lang)) || voices[0];
+  if(v) u.voice=v; u.lang=(v&&v.lang)||'he-IL';
+  u.rate=parseFloat(voiceRate)||1; u.pitch=parseFloat(voicePitch)||1;
+  try{ speechSynthesis.cancel(); speechSynthesis.speak(u); }catch{}
+}
+
+const el=s=>document.querySelector(s);
+const mk=t=>document.createElement(t);
+const save=()=>{ SET('tab',tab); SET('kidName',nameVal); SET('morningTasks',morning); SET('eveningTasks',evening); SET('motives',motives); SET('doneToday',done); SET('coins',coins); SET('stars',stars); SET('shelf',shelf); SET('voiceOn',voiceOn); SET('voiceName',voiceName); SET('voiceRate',voiceRate); SET('voicePitch',voicePitch); };
+
+function progressFor(kind){ const list=(kind==='morning'?morning:evening); const map=done[kind]; const total=list.length||1; const cnt=list.filter(t=>map[t.id]).length; return Math.round(100*cnt/total); }
+function renderHeader(){ el('#kidNameLabel').textContent=nameVal; const p=tab==='morning'?progressFor('morning'):tab==='evening'?progressFor('evening'):0; el('#progressBar').style.width=p+'%'; el('#progressText').textContent=p+'%'; el('#subtitle').textContent=tab==='morning'?'בואו עושים משימות בכיף':(tab==='evening'?'נסיים בנעימים ונלך לישון':'מסמנים הצלחות יומיומיות'); el('#starCount').textContent=stars; }
+function stickerAt(target, text="⭐"){ const s=mk('div'); s.className='sticker'; s.textContent=text; const r=target.getBoundingClientRect(); s.style.left=(r.right-16)+'px'; s.style.top=(r.top-8 + window.scrollY)+'px'; document.body.appendChild(s); setTimeout(()=>s.remove(),900); }
+
+function makeRow(t, checked, onToggle){
+  const row=mk('div'); row.className='task';
+  const icon=mk('div'); icon.className='icon'; icon.textContent=iconFor(t.title);
+  icon.title = t.title; icon.onclick=(e)=>{ e.stopPropagation(); say(t.title); };
+  const text=mk('div'); text.innerHTML='<div class="name">'+t.title+'</div>'+(t.minutes?'<div class="mini">זמן מוצע: '+t.minutes+' דק׳</div>':'');
+  const tog=mk('div'); tog.className='toggle'+(checked?' on':'');
+  tog.onclick=(e)=>{ e.stopPropagation(); onToggle(e.currentTarget); };
+  row.onclick=(e)=>{ onToggle(tog); };
+  row.append(icon,text,tog);
+  return row;
+}
+
+function checkGift(){
+  if(stars>0 && stars % 5 === 0) {
+    const m = el('#giftModal'); m.style.display='flex';
+  }
+}
+
+function renderList(){
+  const box=el('#list'); box.innerHTML='';
+  if(tab==='morning'||tab==='evening'){
+    const list=(tab==='morning'?morning:evening);
+    const map=done[tab];
+    list.forEach(t=>{
+      const row=makeRow(t, !!map[t.id], (anchor)=>{
+        const was=!!map[t.id];
+        map[t.id]=!was;
+        anchor.classList.toggle('on', !!map[t.id]);
+        if(!was){ coins+=1; stickerAt(anchor,'🎉'); }
+        save(); renderHeader(); renderWallet();
+        if(progressFor(tab)===100 && !was){ stars+=1; save(); renderHeader(); renderWallet(); checkGift(); }
+      });
+      box.appendChild(row);
+    });
+  } else {
+    const map=done.motives;
+    motives.forEach(m=>{
+      const row=makeRow({id:m.id,title:m.title}, !!map[m.id], (anchor)=>{
+        const was=!!map[m.id];
+        map[m.id]=!was;
+        anchor.classList.toggle('on', !!map[m.id]);
+        if(!was){ coins+=2; stickerAt(anchor,'✨'); }
+        save(); renderHeader(); renderWallet();
+      });
+      box.appendChild(row);
+    });
+  }
+}
+
+function renderTabs(){ document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active')); if(tab==='morning') el('#tabMorning').classList.add('active'); else if(tab==='evening') el('#tabEvening').classList.add('active'); else el('#tabAchieve').classList.add('active'); }
+function renderWallet(){ const w=el('#wallet'); w.innerHTML=''; const a=mk('span'); a.className='chip'; a.textContent='מטבעות: '+coins; const b=mk('span'); b.className='chip'; b.textContent='כוכבים: '+stars; w.append(a,b); }
+function renderShelf(){ const s=el('#shelf'); s.innerHTML=''; shelf.forEach((val,i)=>{ const slot=mk('div'); slot.className='slot'+(val?' filled':''); slot.textContent=val||'—'; s.appendChild(slot); }); }
+
+function renderEditor(){
+  const scope = el('#editScope').value;
+  const list = scope==='morning' ? morning : scope==='evening' ? evening : motives;
+  const wrap = el('#editList'); wrap.innerHTML='';
+  list.forEach((t,i)=>{
+    const row=mk('div'); row.className='edit-item';
+    const inp=mk('input'); inp.value=t.title; inp.style.flex='1';
+    const min=mk('input'); min.type='number'; min.min='0'; min.placeholder='דקות'; min.style.width='90px'; if(t.minutes!=null) min.value=t.minutes;
+    const speak=mk('button'); speak.textContent='📢'; speak.title='להשמיע טקסט'; speak.onclick=()=>say(inp.value);
+    const up=mk('button'); up.textContent='↑'; const down=mk('button'); down.textContent='↓';
+    const del=mk('button'); del.textContent='מחק';
+    row.append(inp, min, speak, up, down, del);
+    wrap.appendChild(row);
+
+    inp.oninput=()=>{ t.title=inp.value; save(); renderList(); };
+    min.oninput=()=>{ const v=parseInt(min.value||'0',10); if(!isNaN(v)) t.minutes=v; else t.minutes=null; save(); renderList(); };
+    up.onclick=()=>{ if(i>0){ [list[i-1],list[i]]=[list[i],list[i-1]]; save(); renderEditor(); renderList(); } };
+    down.onclick=()=>{ if(i<list.length-1){ [list[i+1],list[i]]=[list[i],list[i+1]]; save(); renderEditor(); renderList(); } };
+    del.onclick=()=>{ list.splice(i,1); save(); renderEditor(); renderList(); };
+  });
+}
+
+function addTask(){
+  const scope=el('#editScope').value;
+  const title=(el('#newTaskTitle').value||'').trim();
+  const minutes=parseInt(el('#newTaskMinutes').value||'0',10);
+  if(!title) return alert('יש לכתוב כותרת משימה');
+  const item={id:crypto.randomUUID(),title:title};
+  if(!isNaN(minutes) && minutes>0) item.minutes=minutes;
+  if(scope==='morning') morning.push(item);
+  else if(scope==='evening') evening.push(item);
+  else motives.push(item);
+  el('#newTaskTitle').value=''; el('#newTaskMinutes').value='';
+  save(); renderEditor(); renderList();
+}
+
+function clearAll(){
+  if(!confirm('לנקות את כל הנתונים של האפליקציה הזו?')) return;
+  ['tab','kidName','morningTasks','eveningTasks','motives','doneToday','coins','stars','shelf','voiceOn','voiceName','voiceRate','voicePitch'].forEach(k=>localStorage.removeItem(APP+':'+k));
+  location.reload();
+}
+
+function buySticker(symbol, cost){
+  if(coins<cost) return alert('צריך עוד מטבעות!');
+  const idx=shelf.findIndex(x=>!x);
+  if(idx===-1) return alert('המדף מלא!');
+  coins-=cost; shelf[idx]=symbol; save(); renderWallet(); renderShelf();
+}
+
+function bindEvents(){
+  el('#tabMorning').onclick=()=>{ tab='morning'; save(); renderTabs(); renderList(); renderHeader(); };
+  el('#tabEvening').onclick=()=>{ tab='evening'; save(); renderTabs(); renderList(); renderHeader(); };
+  el('#tabAchieve').onclick=()=>{ tab='achieve'; save(); renderTabs(); renderList(); renderHeader(); };
+
+  el('#kidName').oninput=(e)=>{ nameVal=e.target.value; save(); renderHeader(); };
+  el('#clearData').onclick=clearAll;
+
+  el('#buy1').onclick=()=>buySticker('😀',5);
+  el('#buy2').onclick=()=>buySticker('⭐',5);
+  el('#buy3').onclick=()=>buySticker('🏆',10);
+
+  el('#editScope').onchange=renderEditor;
+  el('#addTask').onclick=addTask;
+
+  // voice controls
+  const vOn=el('#voiceOn'); const vSel=el('#voiceSelect'); const vRate=el('#voiceRate'); const vPitch=el('#voicePitch');
+  vOn.checked=!!voiceOn; vRate.value=voiceRate; vPitch.value=voicePitch;
+  vSel.addEventListener('change', ()=>{ voiceName=vSel.value; save(); });
+  vOn.addEventListener('change', ()=>{ voiceOn=vOn.checked; save(); });
+  vRate.addEventListener('input', ()=>{ voiceRate=vRate.value; save(); });
+  vPitch.addEventListener('input', ()=>{ voicePitch=vPitch.value; save(); });
+  el('#testVoice').onclick=()=> say(`שלום ${nameVal}! בדיקת קול עובדת.`);
+
+  // gift modal
+  el('#giftClose').onclick=()=> el('#giftModal').style.display='none';
+}
+
+function init(){
+  document.title='KidRoutine Son ⭐';
+  el('#kidName').value=nameVal;
+  renderTabs(); renderHeader(); renderList(); renderWallet(); renderShelf(); bindEvents(); renderEditor();
+}
+
+// PWA install
+let deferred=null; const installBtn=document.querySelector('#installBtn');
+window.addEventListener('beforeinstallprompt', (e)=>{ e.preventDefault(); deferred=e; installBtn.style.display='inline-block'; });
+installBtn.onclick = async ()=>{ if(!deferred) return; deferred.prompt(); const choice = await deferred.userChoice; if(choice.outcome==='accepted'){ document.querySelector('#status').textContent='מותקן'; installBtn.style.display='none'; } };
+window.addEventListener('appinstalled', ()=>{ document.querySelector('#status').textContent='מותקן'; installBtn.style.display='none'; });
+if('serviceWorker' in navigator){ window.addEventListener('load', ()=> navigator.serviceWorker.register('./sw.js').catch(()=>{}) ); }
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

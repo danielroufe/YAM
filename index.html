@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#10b981">
+<title>KidRoutine Son ⭐</title>
+<style>
+:root{--bg:#f0fff7;--text:#111;--muted:#047857;--brand:#10b981}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Heebo,Arial;background:#f0fff7;color:var(--text)}
+header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#ffffffd0;border-bottom:2px solid #dcfce7;position:sticky;top:0}
+.brand{font-weight:900}.badge{border:2px dashed #86efac;border-radius:999px;padding:6px 12px;font-size:12px;color:#065f46;background:#ecfdf5}
+main{max-width:560px;margin:0 auto;padding:12px}.card{background:#fff;border:2px solid #dcfce7;border-radius:22px;padding:12px;margin:14px 0;box-shadow:0 8px 0 #86efac}
+.title{font-weight:900;font-size:22px}.muted{color:var(--muted);font-size:13px}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#d1fae5;border-radius:16px;padding:6px}
+.tabs button{background:#a7f3d0;border:2px solid #6ee7b7;border-radius:12px;padding:10px;font-weight:900;cursor:pointer}
+.tabs .active{background:#fff;border-color:#34d399;box-shadow:0 4px 0 #6ee7b7}
+.progress{height:14px;background:#dcfce7;border-radius:999px;overflow:hidden;border:2px solid #6ee7b7}.progress>div{height:100%;background:linear-gradient(90deg,#60a5fa,#10b981);width:0%}
+.grid{display:grid;gap:10px}.task{display:flex;align-items:center;gap:12px;padding:12px;border:2px solid #bbf7d0;border-radius:16px;background:#fff;box-shadow:0 4px 0 #86efac}
+.icon{width:60px;height:60px;display:grid;place-items:center;background:#ecfeff;border:2px solid #bae6fd;border-radius:14px;font-size:36px;cursor:pointer}
+.name{font-size:18px;font-weight:900}.mini{font-size:12px;color:#0f766e}
+.toggle{width:64px;height:36px;border-radius:999px;background:#fde68a;border:2px solid #fbbf24;position:relative;cursor:pointer}
+.toggle::after{content:"";position:absolute;inset:3px;width:28px;border-radius:999px;background:#fff;transition:transform .2s}
+.toggle.on{background:#86efac;border-color:#34d399}.toggle.on::after{transform:translateX(24px)}
+.btn{appearance:none;border:none;border-radius:12px;padding:10px 12px;background:#10b981;color:#fff;font-weight:900;cursor:pointer;box-shadow:0 4px 0 #059669}
+.btn.ghost{background:#f0fdf4;color:#065f46;border:2px solid #86efac;box-shadow:none}
+.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{background:#ecfeff;border:2px solid #bae6fd;border-radius:999px;padding:6px 10px;font-weight:900}
+.shelf{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.slot{height:72px;border:2px dashed #a7f3d0;border-radius:12px;display:grid;place-items:center;background:#fff}.slot.filled{border-style:solid;background:#f0fdf4}
+.small{font-size:12px;color:#64748b}
+
+/* big sticker */
+.sticker{position:absolute;font-size:72px;transform:rotate(-12deg) scale(0.7);opacity:0;animation:stick .9s ease-out forwards;transform-origin:center}
+@keyframes stick{0%{opacity:0;transform:rotate(-12deg) scale(0.7) translate(0,-20px)}60%{opacity:1;transform:rotate(8deg) scale(1.1)}100%{opacity:1;transform:rotate(0) scale(1)}}
+/* base */
+:root{--card:#fff}
+*{box-sizing:border-box}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.edit-list{display:grid;gap:8px;margin-top:8px}
+.edit-item{display:flex;gap:6px;align-items:center}
+.edit-item input{padding:8px;border:2px solid #e2e8f0;border-radius:10px}
+.edit-item button{padding:8px 10px;border-radius:10px;border:2px solid #e2e8f0;background:#fff;cursor:pointer}
+hr.sep{border:none;border-top:1px dashed #e2e8f0;margin:10px 0}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:50}
+.modal{background:#fff;border:3px solid #fcd34d;border-radius:22px;padding:18px;max-width:320px;text-align:center;box-shadow:0 10px 0 #f59e0b}
+.modal .gift{font-size:80px}
+</style>
+</head>
+<body>
+<header><div class="brand">KidRoutine Son ⭐</div><div><button id="install" class="btn" style="display:none">התקנה</button><span class="badge" id="st">ווב</span></div></header>
+<main>
+<section class="card"><div class="title">שלום <span id="nm">חמוד/ה</span>! 🌈</div><div class="muted" id="sub">בואו עושים משימות בכיף</div>
+<div class="progress"><div id="p" style="width:0%"></div></div><div class="muted">התקדמות: <span id="pt">0%</span> | כוכבים: <span id="sc">0</span></div></section>
+<div class="tabs card"><button id="t1" class="active">בוקר 🌞</button><button id="t2">ערב 🌙</button><button id="t3">חיזוקים ⭐</button></div>
+<section id="list" class="card grid"></section>
+<section class="card"><div class="title">פרסים ומדבקות</div><div class="muted">צוברים מטבעות → קונים מדבקות למדף</div>
+<div class="chips" id="wal"></div><div style="display:flex;gap:8px;margin:8px 0"><button class="btn" id="b1">😀 (5)</button><button class="btn" id="b2">⭐ (5)</button><button class="btn" id="b3">🏆 (10)</button></div><div class="shelf" id="sh"></div></section>
+<section class="card"><div class="title">להורה</div><div class="row"><label>שם הילד/ה:</label><input id="kname" placeholder="חמוד/ה" style="max-width:220px;padding:10px;border:2px solid #e5e7eb;border-radius:12px">
+<button class="btn ghost" id="clr">ניקוי כל הנתונים</button></div>
+<hr class="sep">
+<div class="title" style="font-size:18px">ניהול משימות</div><div class="row"><select id="scope"><option value="morning">בוקר</option><option value="evening">ערב</option><option value="motives">חיזוקים</option></select>
+<input id="nt" placeholder="כותרת משימה" style="flex:1;min-width:200px"><input id="nmv" type="number" min="0" placeholder="דקות (אופציונלי)" style="width:140px"><button class="btn" id="add">הוסף/י</button></div>
+<div class="edit-list" id="elist"></div>
+<hr class="sep">
+<div class="row"><label>קריינות:</label><input type="checkbox" id="von"><select id="vsel"></select><label class="small">מהירות</label><input type="range" id="vr" min="0.6" max="1.4" step="0.05" value="1"><label class="small">גובה</label><input type="range" id="vp" min="0.6" max="1.4" step="0.05" value="1"><button class="btn ghost" id="vtest">בדיקת קול</button></div></section>
+</main>
+<div class="modal-bg" id="gift"><div class="modal"><div class="gift">🎁</div><h3>יש! הגעתם ל־5 כוכבים!</h3><p>מגיעה מתנה 🎁</p><button class="btn" id="gx">יאיי!</button></div></div>
+<script>
+const APP="KidRoutine-Son";
+const ICONS={"להתעורר בזמן": "⏰", "להתעורר עם חיוך": "🌞", "ללכת לשירותים": "🚽", "פיפי/חיתול": "🧷", "לצחצח שיניים ולשטוף פנים": "🪥", "לצחצח שיניים (עם עזרה)": "🪥", "לצחצח שיניים": "🪥", "לשטוף ידיים ופנים": "🫧", "להתלבש לבד": "👕", "להתלבש (עם עזרה)": "👗", "לאכול ארוחת בוקר": "🥣", "לאכול ארוחת בוקר קטנה": "🍓", "לקחת תיק ובקבוק מים": "🎒", "לקחת דובי/מוצץ/בקבוק מים": "🧸", "לאסוף צעצועים": "🧸", "שיעורי בית": "✏️", "להכין בגדים למחר": "👚", "סיפור לפני השינה": "📖", "מקלחת/שטיפה": "🛁", "פיג׳מה נוחה": "🛌", "לנעול נעליים": "👟", "הכיר חבר חדש": "🤝", "שיחק יפה עם אחרים": "⚽", "עשה פיפי/קקי בבית הספר": "🌟", "סיפרה למחנכת כשצריך פיפי": "🚽", "מילא מים לבד": "🚰", "אכלה יפה בגן": "🥣", "נמנמה טוב 🌙": "🌙", "השתתפה במעגל שיחה/שירים": "🎶", "עזר למורה": "🍎", "אמרה בבקשה/תודה": "💬"};
+function iconFor(t){ return ICONS[t] || "⭐"; }
+const LS=(k,d)=>{ try{ return JSON.parse(localStorage.getItem(APP+':'+k)) ?? d }catch{ return d } };
+const SET=(k,v)=>{ try{ localStorage.setItem(APP+':'+k, JSON.stringify(v)) }catch{} };
+let tab=LS('tab','morning'), nameVal=LS('kidName','חמוד/ה');
+let morning=LS('morningTasks', [["להתעורר בזמן", 2], ["ללכת לשירותים", 3], ["לצחצח שיניים ולשטוף פנים", 3], ["להתלבש לבד", 5], ["לאכול ארוחת בוקר", 10], ["לקחת תיק ובקבוק מים", 1]].map(x=>({id:crypto.randomUUID(),title:x[0],...(x[1]?{minutes:x[1]}:{})})));
+let evening=LS('eveningTasks', [["לאסוף צעצועים", 5], ["להכין תיק לבית הספר", 4], ["שיעורי בית", 20], ["להכין בגדים למחר", 3], ["לצחצח שיניים", 3], ["סיפור לפני השינה", 10]].map(x=>({id:crypto.randomUUID(),title:x[0],...(x[1]?{minutes:x[1]}:{})})));
+let motives=LS('motives', ["הכיר חבר חדש", "שיחק יפה עם אחרים", "עשה פיפי/קקי בבית הספר", "מילא מים לבד", "עזר למורה"].map(t=>({id:crypto.randomUUID(),title:t})));
+let today=new Date().toDateString(); let done=LS('doneToday',{date:today,morning:{},evening:{},motives:{}}); if(done.date!==today){ done={date:today,morning:{},evening:{},motives:{}}; SET('doneToday',done); }
+let coins=LS('coins',0), stars=LS('stars',0), shelf=LS('shelf',Array(8).fill(null));
+// voice
+let voiceOn=LS('voiceOn',true), voiceName=LS('voiceName',''), voiceRate=LS('voiceRate',1), voicePitch=LS('voicePitch',1), voices=[];
+function loadVoices(){ voices=speechSynthesis.getVoices().filter(v=>/he|Hebrew/i.test(v.lang)||/Hebrew/i.test(v.name)); const s=document.querySelector('#vsel'); s.innerHTML=''; if(voices.length===0) voices=speechSynthesis.getVoices(); voices.forEach(v=>{ const o=document.createElement('option'); o.value=v.name; o.textContent=v.name+' ('+v.lang+')'; if(v.name===voiceName) o.selected=true; s.appendChild(o); }); if(!voiceName && voices[0]) voiceName=voices[0].name; }
+if('speechSynthesis' in window){ loadVoices(); window.speechSynthesis.onvoiceschanged=loadVoices; }
+function say(t){ if(!voiceOn || !('speechSynthesis' in window)) return; const u=new SpeechSynthesisUtterance(t); const v=voices.find(x=>x.name===voiceName)||voices.find(x=>/he|Hebrew/i.test(x.lang))||voices[0]; if(v) u.voice=v; u.lang=(v&&v.lang)||'he-IL'; u.rate=parseFloat(voiceRate)||1; u.pitch=parseFloat(voicePitch)||1; try{ speechSynthesis.cancel(); speechSynthesis.speak(u); }catch{} }
+const el=s=>document.querySelector(s), mk=t=>document.createElement(t);
+const save=()=>{ SET('tab',tab); SET('kidName',nameVal); SET('morningTasks',morning); SET('eveningTasks',evening); SET('motives',motives); SET('doneToday',done); SET('coins',coins); SET('stars',stars); SET('shelf',shelf); SET('voiceOn',voiceOn); SET('voiceName',voiceName); SET('voiceRate',voiceRate); SET('voicePitch',voicePitch); };
+function prog(kind){ const list=(kind==='morning'?morning:evening), map=done[kind]; const tot=list.length||1, c=list.filter(t=>map[t.id]).length; return Math.round(100*c/tot); }
+function header(){ el('#nm').textContent=nameVal; const p=tab==='morning'?prog('morning'):tab==='evening'?prog('evening'):0; el('#p').style.width=p+'%'; el('#pt').textContent=p+'%'; el('#sub').textContent=tab==='morning'?'בואו עושים משימות בכיף':(tab==='evening'?'נסיים בנעימים ונלך לישון':'מסמנים הצלחות יומיומיות'); el('#sc').textContent=stars; }
+function sticker(target, txt){ const s=mk('div'); s.className='sticker'; s.textContent=txt; const r=target.getBoundingClientRect(); s.style.left=(r.left + r.width/2)+'px'; s.style.top=(r.top - 10 + window.scrollY)+'px'; document.body.appendChild(s); setTimeout(()=>s.remove(),1100); }
+function row(t, checked, onT){ const r=mk('div'); r.className='task'; const i=mk('div'); i.className='icon'; i.textContent=iconFor(t.title); i.title=t.title; i.onclick=e=>{ e.stopPropagation(); say(t.title); }; const tx=mk('div'); tx.innerHTML='<div class="name">'+t.title+'</div>'+(t.minutes?'<div class="mini">זמן מוצע: '+t.minutes+' דק׳</div>':''); const g=mk('div'); g.className='toggle'+(checked?' on':''); g.onclick=e=>{ e.stopPropagation(); onT(g); }; r.onclick=e=>onT(g); r.append(i,tx,g); return r; }
+function gift(){ if(stars>0 && stars%5===0) el('#gift').style.display='flex'; }
+function render(){ const box=el('#list'); box.innerHTML=''; if(tab==='morning'||tab==='evening'){ const list=(tab==='morning'?morning:evening), map=done[tab]; list.forEach(t=>{ box.appendChild(row(t, !!map[t.id], g=>{ const was=!!map[t.id]; map[t.id]=!was; g.classList.toggle('on', !!map[t.id]); if(!was){ coins+=1; sticker(g,'🎉'); say('סיימת את המשימה: ' + t.title); } save(); header(); wallet(); if(prog(tab)===100 && !was){ stars+=1; save(); header(); wallet(); gift(); } })); }); } else { const map=done.motives; motives.forEach(m=>{ box.appendChild(row({id:m.id,title:m.title}, !!map[m.id], g=>{ const was=!!map[m.id]; map[m.id]=!was; g.classList.toggle('on', !!map[m.id]); if(!was){ coins+=2; sticker(g,'✨'); say('סיימת את המשימה: ' + m.title); } save(); header(); wallet(); })); }); } }
+function tabs(){ document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active')); if(tab==='morning') el('#t1').classList.add('active'); else if(tab==='evening') el('#t2').classList.add('active'); else el('#t3').classList.add('active'); }
+function wallet(){ const w=el('#wal'); w.innerHTML=''; const a=mk('span'); a.className='chip'; a.textContent='מטבעות: '+coins; const b=mk('span'); b.className='chip'; b.textContent='כוכבים: '+stars; w.append(a,b); }
+function shelfR(){ const s=el('#sh'); s.innerHTML=''; shelf.forEach(v=>{ const d=mk('div'); d.className='slot'+(v?' filled':''); d.textContent=v||'—'; s.appendChild(d); }); }
+function editR(){ const sc=el('#scope').value; const list=sc==='morning'?morning:sc==='evening'?evening:motives; const w=el('#elist'); w.innerHTML=''; list.forEach((t,i)=>{ const r=mk('div'); r.className='edit-item'; const a=mk('input'); a.value=t.title; a.style.flex='1'; const m=mk('input'); m.type='number'; m.min='0'; m.placeholder='דקות'; m.style.width='90px'; if(t.minutes!=null) m.value=t.minutes; const sp=mk('button'); sp.textContent='📢'; sp.onclick=()=>say(a.value); const up=mk('button'); up.textContent='↑'; const dn=mk('button'); dn.textContent='↓'; const del=mk('button'); del.textContent='מחק'; r.append(a,m,sp,up,dn,del); w.appendChild(r); a.oninput=()=>{ t.title=a.value; save(); render(); }; m.oninput=()=>{ const v=parseInt(m.value||'0',10); t.minutes=isNaN(v)?null:v; save(); render(); }; up.onclick=()=>{ if(i>0){ [list[i-1],list[i]]=[list[i],list[i-1]]; save(); editR(); render(); } }; dn.onclick=()=>{ if(i<list.length-1){ [list[i+1],list[i]]=[list[i],list[i+1]]; save(); editR(); render(); } }; del.onclick=()=>{ list.splice(i,1); save(); editR(); render(); }; }); }
+function addT(){ const sc=el('#scope').value; const t=(el('#nt').value||'').trim(); const m=parseInt(el('#nmv').value||'0',10); if(!t) return alert('יש לכתוב כותרת משימה'); const it={id:crypto.randomUUID(),title:t}; if(!isNaN(m)&&m>0) it.minutes=m; if(sc==='morning') morning.push(it); else if(sc==='evening') evening.push(it); else motives.push(it); el('#nt').value=''; el('#nmv').value=''; save(); editR(); render(); }
+function clearAll(){ if(!confirm('לנקות את כל הנתונים של האפליקציה הזו?')) return; ['tab','kidName','morningTasks','eveningTasks','motives','doneToday','coins','stars','shelf','voiceOn','voiceName','voiceRate','voicePitch'].forEach(k=>localStorage.removeItem(APP+':'+k)); location.reload(); }
+function buy(s,c){ if(coins<c) return alert('צריך עוד מטבעות!'); const i=shelf.findIndex(x=>!x); if(i===-1) return alert('המדף מלא!'); coins-=c; shelf[i]=s; save(); wallet(); shelfR(); }
+function greet(){ if(tab==='morning') say('בוקר טוב ' + nameVal + ', בוא נתחיל לבצע את משימות הבוקר שלנו.'); else if(tab==='evening') say('ערב טוב ' + nameVal + ', נסיים את משימות הערב בנעימים.'); else say('כל הכבוד ' + nameVal + ', בוא נסמן הצלחות יומיומיות.'); }
+function bind(){ el('#t1').onclick=()=>{ tab='morning'; save(); tabs(); render(); header(); greet(); }; el('#t2').onclick=()=>{ tab='evening'; save(); tabs(); render(); header(); greet(); }; el('#t3').onclick=()=>{ tab='achieve'; save(); tabs(); render(); header(); greet(); }; el('#kname').oninput=e=>{ nameVal=e.target.value; save(); header(); }; el('#clr').onclick=clearAll; el('#b1').onclick=()=>buy('😀',5); el('#b2').onclick=()=>buy('⭐',5); el('#b3').onclick=()=>buy('🏆',10); el('#scope').onchange=editR; el('#add').onclick=addT; const vOn=el('#von'), vSel=el('#vsel'), vr=el('#vr'), vp=el('#vp'); vOn.checked=!!voiceOn; vr.value=voiceRate; vp.value=voicePitch; vSel.addEventListener('change', ()=>{ voiceName=vSel.value; save(); }); vOn.addEventListener('change', ()=>{ voiceOn=vOn.checked; save(); }); vr.addEventListener('input', ()=>{ voiceRate=vr.value; save(); }); vp.addEventListener('input', ()=>{ voicePitch=vp.value; save(); }); el('#vtest').onclick=()=> say('שלום ' + nameVal + '! בדיקת קול עובדת.'); el('#gx').onclick=()=> el('#gift').style.display='none'; }
+function init(){ document.title='KidRoutine Son ⭐'; el('#kname').value=nameVal; tabs(); header(); render(); wallet(); shelfR(); bind(); editR(); }
+let de=null; const ib=document.querySelector('#install'); window.addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); de=e; ib.style.display='inline-block'; }); ib.onclick=async()=>{ if(!de) return; de.prompt(); const ch=await de.userChoice; if(ch.outcome==='accepted'){ document.querySelector('#st').textContent='מותקן'; ib.style.display='none'; } }; window.addEventListener('appinstalled',()=>{ document.querySelector('#st').textContent='מותקן'; ib.style.display='none'; }); if('serviceWorker' in navigator) window.addEventListener('load', ()=> navigator.serviceWorker.register('./sw.js').catch(()=>{})); document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
